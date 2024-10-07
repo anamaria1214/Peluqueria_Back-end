@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface EstilistaRepo extends MongoRepository<Estilista, String> {
-    List<Cita> findByEstilistaIdAndFechaHora(String estilistaId, LocalDateTime fechaHora);
+
 
 
 }

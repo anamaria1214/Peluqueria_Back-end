@@ -16,4 +16,5 @@ public class Inventario {
     private String producto;
     private int cantidad;
     private int minimoPermitido;
+    private double precio;
 }

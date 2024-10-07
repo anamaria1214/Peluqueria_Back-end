@@ -8,6 +8,7 @@ import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EstilistaServicioImpl implements EstilistaServicio {
@@ -26,14 +27,21 @@ public class EstilistaServicioImpl implements EstilistaServicio {
         if (estilista == null) {
             throw new Exception("Estilista no encontrado.");
         }
-        List<Cita> citas = estilistaRepo.findByEstilistaIdAndFechaHora(estilistaDisponiblesDTO.idEstilista(), estilistaDisponiblesDTO.fechaHora());
-        return citas.isEmpty();
+        Cita cita = citaServicio.encontrarCita(estilistaDisponiblesDTO);
+        return cita==null;
 
     }
 
     @Override
     public List<Estilista> obtenerEstilistasDisponibles(LocalDateTime fechaHora) throws Exception {
-        return null;
+        List<Estilista> estilistasDisponibles = new ArrayList<>();
+        List<Estilista> estilistas = estilistaRepo.findAll();
+        for (Estilista estilista : estilistas) {
+            if (verificarDisponibilidadEstilista(new EstilistaDisponiblesDTO(estilista.getId(), fechaHora))) {
+                estilistasDisponibles.add(estilista);
+            }
+        }
+        return estilistasDisponibles;
     }
 
     @Override

@@ -1,11 +1,14 @@
 package co.edu.uniquindio.peluqueria.servicios.implementacion;
 
 import co.edu.uniquindio.peluqueria.dto.AsignarEstilistaDTO;
+import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cita;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import co.edu.uniquindio.peluqueria.repositorios.CitaRepo;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
+
+import java.util.List;
 
 public class CitaServicioImpl implements CitaServicio {
 
@@ -32,9 +35,9 @@ public class CitaServicioImpl implements CitaServicio {
     }
 
     @Override
-    public Cita encontrarCita(String idCita) throws Exception {
+    public Cita encontrarCita(EstilistaDisponiblesDTO encontrarCitaDTO) throws Exception {
         try{
-            return citaRepo.findById(idCita).get();
+            return citaRepo.findByEstilistaIdAndFechaHora(encontrarCitaDTO.idEstilista(), encontrarCitaDTO.fechaHora());
         }catch (Exception e){
             throw new Exception("No se encontró la cita");
         }
