@@ -7,9 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("servicios")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder
+
 public class Servicio {
     @Id
     private String id;
