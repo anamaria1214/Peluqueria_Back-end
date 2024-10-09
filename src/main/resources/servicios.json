@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1f8d7f4b-6b64-4b7e-8223-d73a2f72a892",
+    "nombreServicio": "Corte de Cabello",
+    "descripcion": "Corte de cabello para hombre",
+    "precio": 15000,
+    "duracionMinutos": 30
+  },
+  {
+    "id": "3c2e5b82-7f46-49c7-a1f4-23b76b4d7893",
+    "nombreServicio": "Afeitado",
+    "descripcion": "Afeitado completo con toalla caliente",
+    "precio": 12000,
+    "duracionMinutos": 20
+  },
+  {
+    "id": "4a0d9f8e-2c15-4c7d-a963-5e9b3d62e124",
+    "nombreServicio": "Manicure",
+    "descripcion": "Servicio de manicure completo",
+    "precio": 20000,
+    "duracionMinutos": 40
+  }
+]

@@ -7,9 +7,10 @@ import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import co.edu.uniquindio.peluqueria.repositorios.CitaRepo;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CitaServicioImpl implements CitaServicio {
 
     private final CitaRepo citaRepo;
