@@ -40,13 +40,14 @@ public class ServicioController {
         return ResponseEntity.ok(new MensajeDTO<>(false, "Servicio eliminado exitosamente"));
     }
 
-    @GetMapping("/obtener/{id}")
+    @GetMapping("/listar-todo/{id}")
     public ResponseEntity<MensajeDTO<InformacionServicioDTO>> obtenerInformacionServicio(@PathVariable String id) throws Exception{
         InformacionServicioDTO info = servicioServicio.obtenerInformacionServicio(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, info));
     }
+    //listarServicios() throws Exception
 
-    @GetMapping("/listar-todo")
+    @GetMapping("/obtener")
     public ResponseEntity<MensajeDTO<List<ItemServicioDTO>>> listarServicios() throws Exception {
         List<ItemServicioDTO> lista = servicioServicio.obtenerServicios();
         return ResponseEntity.ok(new MensajeDTO<>(false, lista));
