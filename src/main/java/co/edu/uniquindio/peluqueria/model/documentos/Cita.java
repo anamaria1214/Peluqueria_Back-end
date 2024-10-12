@@ -10,9 +10,12 @@ import java.time.LocalDateTime;
 @Document("citas")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder
+
 public class Cita {
     @Id
     private String id;
@@ -20,6 +23,8 @@ public class Cita {
     private String idServicio;
     private String idEstilista;
     private LocalDateTime fecha;
+    private LocalDateTime fechaInicioCita;
+    private LocalDateTime fechaFinCita;
     private EstadoCita estado;
 
 }
