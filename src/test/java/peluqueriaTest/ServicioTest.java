@@ -1,4 +1,4 @@
-package co.edu.uniquindio.peluqueria;
+package co.edu.uniquindio.Peluqueria-Back;
 
 import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.*;
 import co.edu.uniquindio.peluqueria.model.documentos.Servicio;
