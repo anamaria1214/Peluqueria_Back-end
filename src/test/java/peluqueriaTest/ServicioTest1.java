@@ -1,4 +1,4 @@
-package co.edu.uniquindio.peluqueria;
+package peluqueriaTest;
 
 import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.CrearServicioDTO;
 import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.EditarServicioDTO;
@@ -119,4 +119,3 @@ public class ServicioTest1 {
         assertEquals("Corte de Cabello", servicioInfo.nombreServicio());
     }
 }
-

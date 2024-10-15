@@ -1,4 +1,4 @@
-package co.edu.uniquindio.Peluqueria-Back;
+package peluqueriaTest;
 
 import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.*;
 import co.edu.uniquindio.peluqueria.model.documentos.Servicio;
@@ -25,7 +25,6 @@ public class ServicioTest {
     @Autowired
     private ServicioServicioImpl servicioServicio;
 
-    @Autowired
     private ServicioRepo servicioRepo;
 
     @BeforeEach

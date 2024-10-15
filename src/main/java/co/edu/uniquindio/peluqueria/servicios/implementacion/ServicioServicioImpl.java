@@ -25,6 +25,10 @@ public class ServicioServicioImpl implements ServicioServicio {
     @Autowired
     private ServicioRepo servicioRepo;
 
+    public ServicioServicioImpl(ServicioRepo servicioRepo) {
+        this.servicioRepo = servicioRepo;
+    }
+
     @Override
     public String crearServicio(CrearServicioDTO crearServicioDTO) throws Exception {
         // Verificar si ya existe un servicio con el mismo nombre

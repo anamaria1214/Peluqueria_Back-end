@@ -41,4 +41,4 @@ Asegúrate de tener instalados los siguientes programas:
 
 ```bash
 git clone https://anamaria1214/Peluqueria_Back-end.git
-cd peluqueria
+cd peluqueriaTest
