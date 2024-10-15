@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ServicioServicioImpl implements ServicioServicio {
 
-    @Autowired
-    private ServicioRepo servicioRepo;
+    private final ServicioRepo servicioRepo;
 
     public ServicioServicioImpl(ServicioRepo servicioRepo) {
         this.servicioRepo = servicioRepo;

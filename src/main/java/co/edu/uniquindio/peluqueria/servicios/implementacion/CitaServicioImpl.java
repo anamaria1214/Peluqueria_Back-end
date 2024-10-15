@@ -12,6 +12,7 @@ import co.edu.uniquindio.peluqueria.repositorios.ServicioRepo;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class CitaServicioImpl implements CitaServicio {
     private final ServicioRepo servicioRepo;
     private final EstilistaServicio estilistaServicio;
 
-    public CitaServicioImpl(CitaRepo citaRepo, ServicioRepo servicioRepo, EstilistaServicio estilistaServicio) {
+    public CitaServicioImpl(CitaRepo citaRepo, ServicioRepo servicioRepo,@Lazy EstilistaServicio estilistaServicio) {
         this.citaRepo = citaRepo;
         this.servicioRepo = servicioRepo;
         this.estilistaServicio = estilistaServicio;
@@ -40,26 +41,20 @@ public class CitaServicioImpl implements CitaServicio {
 
     @Override
     public void asignarEstilista(AsignarEstilistaDTO asignarEstilistaDTO) throws Exception {
-        Cita cita = citaRepo.findById(asignarEstilistaDTO.idCita()).get();
-        if (cita == null) {
-            throw new Exception("Cita no encontrada");
-        }
+        Cita cita = citaRepo.findById(asignarEstilistaDTO.idCita())
+                .orElseThrow(() -> new Exception("Cita no encontrada"));
+
         Estilista estilista = estilistaServicio.encontrarEstilista(asignarEstilistaDTO.idEstilista());
-        if (estilista == null) {
-            throw new Exception("Estilista no encontrado");
-        }
         cita.setIdEstilista(asignarEstilistaDTO.idEstilista());
         citaRepo.save(cita);
     }
 
     @Override
     public Cita encontrarCita(EstilistaDisponiblesDTO encontrarCitaDTO) throws Exception {
-        try{
-            return citaRepo.findByEstilistaIdAndFechaHora(encontrarCitaDTO.idEstilista(), encontrarCitaDTO.fechaHora());
-        }catch (Exception e){
-            throw new Exception("No se encontró la cita");
-        }
+        return citaRepo.findByEstilistaIdAndFechaHora(encontrarCitaDTO.idEstilista(), encontrarCitaDTO.fechaHora())
+                .orElseThrow(() -> new Exception("No se encontró la cita"));
     }
+
 
     @Override
     public VistaCreacionCitaDTO crearCita(CrearCitaDTO cita) throws Exception {

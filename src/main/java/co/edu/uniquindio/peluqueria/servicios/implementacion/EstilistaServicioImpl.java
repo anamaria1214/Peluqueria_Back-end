@@ -6,17 +6,20 @@ import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import co.edu.uniquindio.peluqueria.repositorios.EstilistaRepo;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class EstilistaServicioImpl implements EstilistaServicio {
 
     private final EstilistaRepo estilistaRepo;
     private final CitaServicio citaServicio;
 
-    public EstilistaServicioImpl(EstilistaRepo estilistaRepo, CitaServicio citaServicio) {
+    public EstilistaServicioImpl(EstilistaRepo estilistaRepo,@Lazy CitaServicio citaServicio) {
         this.estilistaRepo = estilistaRepo;
         this.citaServicio = citaServicio;
     }
@@ -46,10 +49,8 @@ public class EstilistaServicioImpl implements EstilistaServicio {
 
     @Override
     public Estilista encontrarEstilista(String idEstilista) throws Exception {
-        try{
-            return estilistaRepo.findById(idEstilista).get();
-        }catch (Exception e){
-            throw new Exception("Estilista no encontrado");
-        }
+        return estilistaRepo.findById(idEstilista)
+                .orElseThrow(() -> new Exception("Estilista no encontrado"));
     }
+
 }

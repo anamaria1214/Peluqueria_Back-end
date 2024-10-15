@@ -1,4 +1,4 @@
-package peluqueriaTest;
+package co.edu.uniquindio.peluqueria;
 
 import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.*;
 import co.edu.uniquindio.peluqueria.model.documentos.Servicio;
@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class ServicioTest {
 
-    @Autowired
     private ServicioServicioImpl servicioServicio;
 
     private ServicioRepo servicioRepo;
