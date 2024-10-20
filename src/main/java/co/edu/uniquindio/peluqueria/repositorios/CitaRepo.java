@@ -40,4 +40,7 @@ public interface CitaRepo extends MongoRepository<Cita, String> {
 
     @Query("{ 'fechaFinCita': { $gte: ?0, $lte: ?1 } }")
     List<Cita> findByFechaFinCitaBetween(LocalDateTime startDate, LocalDateTime endDate);
+
+    @Query("{ _id : ?0 }")
+    Cita findByIdString(String s);
 }

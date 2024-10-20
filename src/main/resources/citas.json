@@ -1,0 +1,16 @@
+[
+  {
+    "id": "60d21b4667d0d8992e610c85",
+    "idCliente": "cliente1",
+    "idServicio": "servicio1",
+    "fechaInicioCita": "2024-10-20T10:00:00.000000000",
+    "estado": "PENDIENTE"
+  },
+  {
+    "id": "60d21b4667d0d8992e610c86",
+    "idCliente": "cliente2",
+    "idServicio": "servicio2",
+    "fechaInicioCita": "2024-10-21T14:00:00.000000000",
+    "estado": "PENDIENTE"
+  }
+]

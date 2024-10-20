@@ -53,4 +53,9 @@ public class EstilistaServicioImpl implements EstilistaServicio {
                 .orElseThrow(() -> new Exception("Estilista no encontrado"));
     }
 
+    @Override
+    public Estilista guardarEstilista(Estilista estilista) throws Exception {
+        return estilistaRepo.save(estilista);
+    }
+
 }

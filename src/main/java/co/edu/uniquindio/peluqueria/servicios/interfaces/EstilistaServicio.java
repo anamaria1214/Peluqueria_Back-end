@@ -2,7 +2,6 @@ package co.edu.uniquindio.peluqueria.servicios.interfaces;
 
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,4 +14,7 @@ public interface EstilistaServicio {
     List<Estilista> obtenerEstilistasDisponibles(LocalDateTime fechaHora) throws Exception;
 
     Estilista encontrarEstilista(String idEstilista) throws Exception;
+
+    // Método para guardar un estilista
+    Estilista guardarEstilista(Estilista estilista) throws Exception;
 }
