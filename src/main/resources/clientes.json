@@ -1,0 +1,47 @@
+[
+  {
+    "id": "60d21b4667d0d8992e610c85",
+    "nombre": "Carlos",
+    "telefono": "1234567890",
+    "correo": "carlos@example.com",
+    "historialServicios": [],
+    "membresia": null,
+    "password": "password123"
+  },
+  {
+    "id": "60d21b4667d0d8992e610c86",
+    "nombre": "Ana",
+    "telefono": "0987654321",
+    "correo": "ana@example.com",
+    "historialServicios": [],
+    "membresia": null,
+    "password": "password456"
+  },
+  {
+    "id": "60d21b4667d0d8992e610c87",
+    "nombre": "Juan",
+    "telefono": "4561237890",
+    "correo": "juan@example.com",
+    "historialServicios": [],
+    "membresia": null,
+    "password": "password789"
+  },
+  {
+    "id": "60d21b4667d0d8992e610c88",
+    "nombre": "María",
+    "telefono": "3216549870",
+    "correo": "maria@example.com",
+    "historialServicios": [],
+    "membresia": null,
+    "password": "password321"
+  },
+  {
+    "id": "60d21b4667d0d8992e610c89",
+    "nombre": "Luis",
+    "telefono": "6543217890",
+    "correo": "luis@example.com",
+    "historialServicios": [],
+    "membresia": null,
+    "password": "password654"
+  }
+]
