@@ -6,7 +6,6 @@ import co.edu.uniquindio.peluqueria.repositorios.ServicioRepo;
 import co.edu.uniquindio.peluqueria.servicios.implementacion.ServicioServicioImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +14,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ServicioTest {
 
+    @Autowired
     private ServicioServicioImpl servicioServicio;
 
+    @Autowired
     private ServicioRepo servicioRepo;
+
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     public void setUp() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper = new ObjectMapper();
 
         // Cargar el archivo JSON desde el directorio de recursos
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("servicios.json");
-        Assertions.assertNotNull(inputStream, "Archivo servicios.json no encontrado");
+        assertNotNull(inputStream, "Archivo servicios.json no encontrado");
 
         List<Servicio> servicios = objectMapper.readValue(inputStream, new TypeReference<List<Servicio>>() {});
 
@@ -115,4 +117,3 @@ public class ServicioTest {
         assertEquals("Corte de Cabello", servicioInfo.nombreServicio());
     }
 }
-
