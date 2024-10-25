@@ -21,9 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ServicioTest {
-
+    @Autowired
     private ServicioServicioImpl servicioServicio;
-
+    @Autowired
     private ServicioRepo servicioRepo;
 
     @BeforeEach
