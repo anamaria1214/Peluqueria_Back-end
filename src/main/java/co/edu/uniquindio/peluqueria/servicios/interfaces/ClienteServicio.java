@@ -2,6 +2,8 @@ package co.edu.uniquindio.peluqueria.servicios.interfaces;
 
 import co.edu.uniquindio.peluqueria.dto.ClienteDTOs.CrearClienteDTO;
 import co.edu.uniquindio.peluqueria.dto.ClienteDTOs.EditarClienteDTO;
+import co.edu.uniquindio.peluqueria.dto.ClienteDTOs.LoginDTO;
+import co.edu.uniquindio.peluqueria.dto.TokenDTOs.TokenDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cliente;
 
 import java.util.List;
@@ -12,4 +14,5 @@ public interface ClienteServicio {
     void eliminarCliente(String id) throws Exception;
     Cliente obtenerClientePorId(String id) throws Exception;
     List<Cliente> listarClientes() throws Exception;
+        TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception;
 }
