@@ -16,11 +16,7 @@ public interface CitaRepo extends MongoRepository<Cita, String> {
     @Query("{ 'idEstilista': ?0, 'fecha': ?1 }")
     Optional<Cita> findByEstilistaIdAndFechaHora(String idEstilista, LocalDateTime fecha);
 
-    @Query("{ $or: [ " +
-            " { 'fechaInicioCita': { $lte: ?1 }, 'fechaFinCita': { $gte: ?1 } }, " +  // Nueva fechaInicio dentro de una cita existente
-            " { 'fechaInicioCita': { $lte: ?2 }, 'fechaFinCita': { $gte: ?2 } }, " +  // Nueva fechaFin dentro de una cita existente
-            " { 'fechaInicioCita': { $gte: ?1 }, 'fechaFinCita': { $lte: ?2 } } " +   // Cita existente dentro del nuevo rango
-            " ] }")
+    @Query("{ 'fecha': { $gte: ?0, $lte: ?1 } }")
     List<Cita> buscarCitasEnRango(LocalDateTime nuevaFechaInicio, LocalDateTime nuevaFechaFin);
 
     @Query("{ 'idCliente': ?0 }")
@@ -43,4 +39,7 @@ public interface CitaRepo extends MongoRepository<Cita, String> {
 
     @Query("{ _id : ?0 }")
     Cita findByIdString(String s);
+    // Método con @Query para listar citas con estado "PENDIENTE"
+    @Query("{ 'estado': ?0 }")
+    List<Cita> listarCitas(String estado);
 }

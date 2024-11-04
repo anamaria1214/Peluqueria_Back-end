@@ -4,18 +4,21 @@ import co.edu.uniquindio.peluqueria.dto.AsignarEstilistaDTO;
 import co.edu.uniquindio.peluqueria.dto.CitaDTO.*;
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cita;
+import co.edu.uniquindio.peluqueria.model.documentos.Cliente;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import co.edu.uniquindio.peluqueria.model.documentos.Servicio;
 import co.edu.uniquindio.peluqueria.model.enums.EstadoCita;
 import co.edu.uniquindio.peluqueria.repositorios.CitaRepo;
+import co.edu.uniquindio.peluqueria.repositorios.ClienteRepo;
+import co.edu.uniquindio.peluqueria.repositorios.EstilistaRepo;
 import co.edu.uniquindio.peluqueria.repositorios.ServicioRepo;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +28,15 @@ public class CitaServicioImpl implements CitaServicio {
     private final CitaRepo citaRepo;
     private final ServicioRepo servicioRepo;
     private final EstilistaServicio estilistaServicio;
+    private final EstilistaRepo estilistaRepo;
+    private final ClienteRepo clienteRepo;
 
-    public CitaServicioImpl(CitaRepo citaRepo, ServicioRepo servicioRepo, @Lazy EstilistaServicio estilistaServicio) {
+    public CitaServicioImpl(CitaRepo citaRepo, ServicioRepo servicioRepo, @Lazy EstilistaServicio estilistaServicio, EstilistaRepo estilistaRepo, ClienteRepo clienteRepo) {
         this.citaRepo = citaRepo;
         this.servicioRepo = servicioRepo;
         this.estilistaServicio = estilistaServicio;
+        this.estilistaRepo = estilistaRepo;
+        this.clienteRepo = clienteRepo;
     }
 
     @Override
@@ -65,6 +72,10 @@ public class CitaServicioImpl implements CitaServicio {
 
         if (cita.fechaInicioCita() == null) {
             throw new Exception("La fecha y hora de la cita son obligatorias");
+        }
+
+        if (verificarDisponibilidad(cita.fechaInicioCita(), cita.idServicio())) {
+            throw new Exception("La fecha y hora seleccionadas no están disponibles");
         }
 
         Optional<Servicio> servicioCita = servicioRepo.buscarServicioPorId(cita.idServicio());
@@ -109,11 +120,11 @@ public class CitaServicioImpl implements CitaServicio {
             throw new Exception("La selección del estilista es obligatoria");
         }
 
-        if (cita.fechanicioCita() == null) {
+        if (cita.fechaInicioCita() == null) {
             throw new Exception("La fecha y hora de la cita son obligatorias");
         }
 
-        if (verificarDisponibilidad(cita.fechanicioCita(), cita.idServicio())) {
+        if (verificarDisponibilidad(cita.fechaInicioCita(), cita.idServicio())) {
             throw new Exception("La fecha y hora seleccionadas no están disponibles");
         }
 
@@ -127,9 +138,9 @@ public class CitaServicioImpl implements CitaServicio {
 
         citaEdicion.setIdServicio(cita.idServicio());
         citaEdicion.setIdEstilista(cita.idEstilista());
-        citaEdicion.setFecha(cita.fechanicioCita());
-        citaEdicion.setFechaInicioCita(cita.fechanicioCita());
-        citaEdicion.setFechaFinCita(cita.fechanicioCita().plusMinutes(duracionServicio));
+        citaEdicion.setFecha(cita.fechaInicioCita());
+        citaEdicion.setFechaInicioCita(cita.fechaInicioCita());
+        citaEdicion.setFechaFinCita(cita.fechaInicioCita    ().plusMinutes(duracionServicio));
         citaEdicion.setEstado(EstadoCita.PENDIENTE);
 
         citaRepo.save(citaEdicion);
@@ -139,8 +150,7 @@ public class CitaServicioImpl implements CitaServicio {
                 citaEdicion.getIdCliente(),
                 citaEdicion.getIdServicio(),
                 citaEdicion.getIdEstilista(),
-                citaEdicion.getFechaInicioCita(),
-                citaEdicion.getFechaFinCita());
+                citaEdicion.getFechaInicioCita());
     }
 
     private boolean verificarDisponibilidad(LocalDateTime fecha, String servicio) {
@@ -154,12 +164,12 @@ public class CitaServicioImpl implements CitaServicio {
     }
 
     @Override
-    public void cancelarCita(EliminarCitaDTO citaEliminar) throws Exception {
-        if (citaEliminar.idCita() == null) {
+    public void cancelarCita(String citaEliminar) throws Exception {
+        if (citaEliminar == null) {
             throw new Exception("El id de la cita es obligatorio para eliminarla");
         }
 
-        Optional<Cita> cita = citaRepo.findById(citaEliminar.idCita());
+        Optional<Cita> cita = citaRepo.findById(citaEliminar);
         if (cita.isPresent()) {
             Cita citaEliminada = cita.get();
             citaEliminada.setEstado(EstadoCita.CANCELADA);
@@ -167,5 +177,45 @@ public class CitaServicioImpl implements CitaServicio {
         } else {
             throw new Exception("Cita no encontrada");
         }
+    }
+
+    @Override
+    public List<CitasDTO> listarCitas() {
+        List<Cita> citas = citaRepo.listarCitas("PENDIENTE");
+
+        List<CitasDTO> citasDTO = new ArrayList<>();
+
+        for(Cita citasSistema : citas){
+
+            Optional<Servicio> servicioOptional = servicioRepo.buscarServicioPorId(citasSistema.getIdServicio());
+            Servicio servicio = servicioOptional.get();
+
+            Optional<Cliente> clienteOptional = clienteRepo.findById(citasSistema.getIdCliente());
+            Cliente cliente = clienteOptional.get();
+
+            Optional<Estilista> estilistaOptional = estilistaRepo.findById(citasSistema.getIdEstilista());
+            Estilista estilista = estilistaOptional.get();
+
+
+            citasDTO.add(new CitasDTO(citasSistema.getId(), servicio.getNombreServicio(), estilista.getNombreEstilista(), cliente.getNombre(), citasSistema.getFecha(), citasSistema.getFecha()));
+        }
+        return citasDTO;
+    }
+
+    @Override
+    public CitasDTO buscarCita(String id) throws Exception {
+        Optional<Cita> citaRepos = citaRepo.findById(id);
+        Cita cita = citaRepos.get();
+
+        Optional<Servicio> servicioOptional = servicioRepo.buscarServicioPorId(cita.getIdServicio());
+        Servicio servicio = servicioOptional.get();
+
+        Optional<Cliente> clienteOptional = clienteRepo.findById(cita.getIdCliente());
+        Cliente cliente = clienteOptional.get();
+
+        Optional<Estilista> estilistaOptional = estilistaRepo.findById(cita.getIdEstilista());
+        Estilista estilista = estilistaOptional.get();
+
+        return new CitasDTO(cita.getId(), servicio.getNombreServicio(), estilista.getNombreEstilista(), cliente.getNombre(), cita.getFecha(), cita.getFecha());
     }
 }

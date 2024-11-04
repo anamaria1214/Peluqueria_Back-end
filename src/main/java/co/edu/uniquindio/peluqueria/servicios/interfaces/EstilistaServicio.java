@@ -13,6 +13,8 @@ public interface EstilistaServicio {
 
     List<Estilista> obtenerEstilistasDisponibles(LocalDateTime fechaHora) throws Exception;
 
+    List<Estilista> obtenerEstilistas() throws Exception;
+
     Estilista encontrarEstilista(String idEstilista) throws Exception;
 
     // Método para guardar un estilista

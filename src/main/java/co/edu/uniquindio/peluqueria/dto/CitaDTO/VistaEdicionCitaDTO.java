@@ -7,6 +7,5 @@ public record VistaEdicionCitaDTO(
         String idCliente,
         String idServicio,
         String idEstilista,
-        LocalDateTime fechanicioCita,
-        LocalDateTime fechaFinCita) {
+        LocalDateTime fechanicioCita) {
 }

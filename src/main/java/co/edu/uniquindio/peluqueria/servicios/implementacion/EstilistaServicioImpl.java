@@ -48,6 +48,12 @@ public class EstilistaServicioImpl implements EstilistaServicio {
     }
 
     @Override
+    public List<Estilista> obtenerEstilistas() throws Exception {
+        List<Estilista> estilistasSistema = estilistaRepo.findAll();
+        return estilistasSistema;
+    }
+
+    @Override
     public Estilista encontrarEstilista(String idEstilista) throws Exception {
         return estilistaRepo.findById(idEstilista)
                 .orElseThrow(() -> new Exception("Estilista no encontrado"));

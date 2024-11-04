@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/cita")
@@ -24,9 +26,9 @@ public class CitaController {
         return ResponseEntity.ok(new MensajeDTO<>(false, citaCreada));
     }
 
-    @DeleteMapping("/eliminar-cita")
-    public ResponseEntity<MensajeDTO<String>> cancelar(@Valid @RequestBody EliminarCitaDTO eliminarCitaDTO) throws Exception {
-        citaServicio.cancelarCita(eliminarCitaDTO);
+        @DeleteMapping("/eliminar-cita/{id}")
+    public ResponseEntity<MensajeDTO<String>> cancelar(@PathVariable String id) throws Exception {
+        citaServicio.cancelarCita(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, "Cita eliminada correctamente"));
     }
 
@@ -45,6 +47,18 @@ public class CitaController {
     @GetMapping("/encontrarCita")
     public ResponseEntity<MensajeDTO<Cita>> encontrarCita(@Valid @RequestBody EstilistaDisponiblesDTO encontrarCitaDTO) throws Exception {
         Cita cita = citaServicio.encontrarCita(encontrarCitaDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, cita));
+    }
+
+    @GetMapping("/listar-citas")
+    public ResponseEntity<MensajeDTO<List<CitasDTO>>> listarCitas() throws Exception {
+        List<CitasDTO> cita = citaServicio.listarCitas();
+        return ResponseEntity.ok(new MensajeDTO<>(false, cita));
+    }
+
+    @GetMapping("/cita/obtener/{id}")
+    public ResponseEntity<MensajeDTO<CitasDTO>> obtenerCita(@PathVariable String id) throws Exception {
+        CitasDTO cita = citaServicio.buscarCita(id );
         return ResponseEntity.ok(new MensajeDTO<>(false, cita));
     }
 }

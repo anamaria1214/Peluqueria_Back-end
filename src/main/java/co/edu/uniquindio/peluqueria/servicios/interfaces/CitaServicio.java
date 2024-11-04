@@ -6,6 +6,8 @@ import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cita;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface CitaServicio {
 
@@ -17,6 +19,9 @@ public interface CitaServicio {
 
     VistaEdicionCitaDTO editarCita(EditarCitaDTO crearCitaDTO) throws Exception;
 
-    void cancelarCita(EliminarCitaDTO crearCitaDTO) throws Exception;
+    void cancelarCita(String cita) throws Exception;
 
+    List<CitasDTO> listarCitas();
+
+    CitasDTO buscarCita(String cita) throws Exception;
 }
