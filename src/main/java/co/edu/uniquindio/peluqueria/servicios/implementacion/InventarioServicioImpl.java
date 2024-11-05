@@ -1,5 +1,6 @@
 package co.edu.uniquindio.peluqueria.servicios.implementacion;
 
+import co.edu.uniquindio.peluqueria.dto.AgregarProductoStockDTO;
 import co.edu.uniquindio.peluqueria.dto.ProductoStockDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Inventario;
 import co.edu.uniquindio.peluqueria.repositorios.InventarioRepo;
@@ -62,8 +63,8 @@ public class InventarioServicioImpl implements InventarioServicio {
     }
 
     @Override
-    public void agregarProducto(Inventario producto) {
-        inventarioRepo.save(producto);
+    public void agregarProducto(AgregarProductoStockDTO producto) {
+        inventarioRepo.save(new Inventario(producto.nombre(), producto.cantidad(), producto.precio()));
     }
 
     @Override

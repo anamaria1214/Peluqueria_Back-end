@@ -1,5 +1,6 @@
 package co.edu.uniquindio.peluqueria.servicios.interfaces;
 
+import co.edu.uniquindio.peluqueria.dto.AgregarProductoStockDTO;
 import co.edu.uniquindio.peluqueria.dto.ProductoStockDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Inventario;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public interface InventarioServicio {
 
     Inventario obtenerProductoPorId(String id) throws Exception;
 
-    void agregarProducto(Inventario producto);
+    void agregarProducto(AgregarProductoStockDTO producto);
 
     void eliminarProducto(String id) throws Exception;
 }

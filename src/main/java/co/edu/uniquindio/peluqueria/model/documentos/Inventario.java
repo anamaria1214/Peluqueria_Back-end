@@ -15,6 +15,11 @@ public class Inventario {
     private String id;
     private String producto;
     private int cantidad;
-    private int minimoPermitido;
     private double precio;
+
+    public Inventario(String nombre, int cantidad, double precio) {
+        this.producto = nombre;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
 }

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.peluqueria.controller;
 
+import co.edu.uniquindio.peluqueria.dto.AgregarProductoStockDTO;
 import co.edu.uniquindio.peluqueria.dto.MensajeDTO;
 import co.edu.uniquindio.peluqueria.dto.ProductoStockDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Inventario;
@@ -43,7 +44,7 @@ public class InventarioController {
     }
 
     @PostMapping("/agregarProducto")
-    public ResponseEntity<MensajeDTO<String>> agregarProducto(@Valid @RequestBody Inventario producto){
+    public ResponseEntity<MensajeDTO<String>> agregarProducto(@Valid @RequestBody AgregarProductoStockDTO producto){
         inventarioServicio.agregarProducto(producto);
         return ResponseEntity.ok(new MensajeDTO<>(false,"Producto agregado correctamente"));
     }
