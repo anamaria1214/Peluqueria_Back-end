@@ -60,7 +60,7 @@ public class InventarioController {
         return ResponseEntity.ok(new MensajeDTO<>(false,reporteDTO));
     }
 
-        @GetMapping("/generarHistorial/{id}")
+    @GetMapping("/generarHistorial/{id}")
     public ResponseEntity<MensajeDTO<List<HistorialDTO>>> obtenerHistorial(@PathVariable String id) throws Exception{
         List<HistorialDTO> historialDTOS= inventarioServicio.obtenerHistorial(id);
         return ResponseEntity.ok(new MensajeDTO<>(false,historialDTOS));
