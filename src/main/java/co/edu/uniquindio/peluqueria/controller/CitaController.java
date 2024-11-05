@@ -26,7 +26,7 @@ public class CitaController {
         return ResponseEntity.ok(new MensajeDTO<>(false, citaCreada));
     }
 
-        @DeleteMapping("/eliminar-cita/{id}")
+    @DeleteMapping("/eliminar-cita/{id}")
     public ResponseEntity<MensajeDTO<String>> cancelar(@PathVariable String id) throws Exception {
         citaServicio.cancelarCita(id);
         return ResponseEntity.ok(new MensajeDTO<>(false, "Cita eliminada correctamente"));

@@ -2,6 +2,7 @@ package co.edu.uniquindio.peluqueria.servicios.implementacion;
 
 import co.edu.uniquindio.peluqueria.dto.AsignarEstilistaDTO;
 import co.edu.uniquindio.peluqueria.dto.CitaDTO.*;
+import co.edu.uniquindio.peluqueria.dto.EmailDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cita;
 import co.edu.uniquindio.peluqueria.model.documentos.Cliente;
@@ -16,6 +17,7 @@ import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CitaServicioImpl implements CitaServicio {
 
     private final CitaRepo citaRepo;
@@ -30,13 +33,15 @@ public class CitaServicioImpl implements CitaServicio {
     private final EstilistaServicio estilistaServicio;
     private final EstilistaRepo estilistaRepo;
     private final ClienteRepo clienteRepo;
+    private final EmailServicioImpl emailServicio;
 
-    public CitaServicioImpl(CitaRepo citaRepo, ServicioRepo servicioRepo, @Lazy EstilistaServicio estilistaServicio, EstilistaRepo estilistaRepo, ClienteRepo clienteRepo) {
+    public CitaServicioImpl(CitaRepo citaRepo, ServicioRepo servicioRepo, @Lazy EstilistaServicio estilistaServicio, EstilistaRepo estilistaRepo, ClienteRepo clienteRepo, EmailServicioImpl emailServicio) {
         this.citaRepo = citaRepo;
         this.servicioRepo = servicioRepo;
         this.estilistaServicio = estilistaServicio;
         this.estilistaRepo = estilistaRepo;
         this.clienteRepo = clienteRepo;
+        this.emailServicio = emailServicio;
     }
 
     @Override
@@ -94,8 +99,14 @@ public class CitaServicioImpl implements CitaServicio {
                 .fechaFinCita(fechaFinCita)
                 .estado(EstadoCita.PENDIENTE)
                 .build();
-
+        Optional<Cliente> clienteOptional = clienteRepo.findById(cita.idCliente());
+        Cliente cliente =  clienteOptional.get();
         citaRepo.save(nuevaCita);
+
+        EmailDTO emailDTO = new EmailDTO("RESERVA EN BARBER-SHOP", "Hola, " +cliente.getNombre()
+                + " este es el correo de confirmacion de la cita que reservaste en Barber-Shop", cliente.getEmail());
+
+        emailServicio.enviarCorreo(emailDTO);
 
         return new VistaCreacionCitaDTO(
                 nuevaCita.getIdCliente(),
@@ -145,6 +156,13 @@ public class CitaServicioImpl implements CitaServicio {
 
         citaRepo.save(citaEdicion);
 
+        Optional<Cliente> clienteOptional = clienteRepo.findById(citaEdicion.getIdCliente());
+        Cliente cliente =  clienteOptional.get();
+
+        EmailDTO emailDTO = new EmailDTO("EDICION DE RESERVA EN BARBER-SHOP", "Hola, " +cliente.getNombre()
+                + " este es el correo de confirmacion de la edicion que hiciste a la cita " + citaEdicion.getId() + " que editaste en Barber-Shop" , cliente.getEmail());
+
+        emailServicio.enviarCorreo(emailDTO);
         return new VistaEdicionCitaDTO(
                 citaEdicion.getId(),
                 citaEdicion.getIdCliente(),

@@ -1,17 +1,15 @@
 package co.edu.uniquindio.peluqueria.servicios.implementacion;
 
-import co.edu.uniquindio.peluqueria.dto.CitaDTO.VistaEdicionCitaDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistasDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cita;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
-import co.edu.uniquindio.peluqueria.model.documentos.Servicio;
-import co.edu.uniquindio.peluqueria.model.enums.EstadoCita;
 import co.edu.uniquindio.peluqueria.repositorios.EstilistaRepo;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.CitaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class EstilistaServicioImpl implements EstilistaServicio {
 
     private final EstilistaRepo estilistaRepo;

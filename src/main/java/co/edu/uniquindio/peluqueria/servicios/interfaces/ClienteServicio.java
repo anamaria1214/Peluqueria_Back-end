@@ -14,5 +14,5 @@ public interface ClienteServicio {
     void eliminarCliente(String id) throws Exception;
     Cliente obtenerClientePorId(String id) throws Exception;
     List<Cliente> listarClientes() throws Exception;
-        TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception;
+    TokenDTO iniciarSesion(LoginDTO loginDTO) throws Exception;
 }

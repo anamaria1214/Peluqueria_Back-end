@@ -13,12 +13,14 @@ import co.edu.uniquindio.peluqueria.servicios.interfaces.ClienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ClienteServicioImpl implements ClienteServicio {
 
     @Autowired
@@ -100,12 +102,15 @@ public class ClienteServicioImpl implements ClienteServicio {
 
         if (loginDTO.correo().equals("admin@gmail.com") && loginDTO.password().equals("admin")) {
             Map<String, Object> mapAdmin = construirClaimsAdmin(cuenta);
+            System.out.println("map Admin" + mapAdmin);
             return new TokenDTO(jwtUtils.generarToken(cuenta.getEmail(), mapAdmin));
-        }else{
+
+        }
+        else {
             Map<String, Object> mapClient = construirClaims(cuenta);
+            System.out.println("map cliente: " + mapClient);
             return new TokenDTO(jwtUtils.generarToken(cuenta.getEmail(), mapClient));
         }
-
     }
     private Map<String, Object> construirClaims(Cliente cuenta) {
         return Map.of(

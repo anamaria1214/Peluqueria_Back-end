@@ -6,6 +6,7 @@ import co.edu.uniquindio.peluqueria.model.enums.EstadoCita;
 import co.edu.uniquindio.peluqueria.repositorios.*;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.InventarioServicio;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class InventarioServicioImpl implements InventarioServicio {
 
     private final InventarioRepo inventarioRepo;
