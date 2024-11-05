@@ -49,7 +49,7 @@ public class InventarioController {
         return ResponseEntity.ok(new MensajeDTO<>(false,"Producto agregado correctamente"));
     }
 
-    @DeleteMapping("/eliminarProducto")
+    @DeleteMapping("/eliminarProducto/{id}")
     public ResponseEntity<MensajeDTO<String>> eliminarProducto(@PathVariable String id) throws Exception{
         inventarioServicio.eliminarProducto(id);
         return ResponseEntity.ok(new MensajeDTO<>(false,"Producto eliminado correctamente"));
