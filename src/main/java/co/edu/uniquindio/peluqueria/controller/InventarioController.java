@@ -1,8 +1,6 @@
 package co.edu.uniquindio.peluqueria.controller;
 
-import co.edu.uniquindio.peluqueria.dto.AgregarProductoStockDTO;
-import co.edu.uniquindio.peluqueria.dto.MensajeDTO;
-import co.edu.uniquindio.peluqueria.dto.ProductoStockDTO;
+import co.edu.uniquindio.peluqueria.dto.*;
 import co.edu.uniquindio.peluqueria.model.documentos.Inventario;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.InventarioServicio;
 import jakarta.validation.Valid;
@@ -55,4 +53,16 @@ public class InventarioController {
         return ResponseEntity.ok(new MensajeDTO<>(false,"Producto eliminado correctamente"));
     }
 
+    @GetMapping("/generarReporte/{fechaInicio}/{fechaFin}")
+    public ResponseEntity<MensajeDTO<List<ReporteDTO>>> obtenerProductoPorId(@PathVariable String fechaInicio,
+                                                                             @PathVariable String fechaFin) throws Exception{
+        List<ReporteDTO> reporteDTO= inventarioServicio.obtenerReporte(fechaInicio, fechaFin);
+        return ResponseEntity.ok(new MensajeDTO<>(false,reporteDTO));
+    }
+
+        @GetMapping("/generarHistorial/{id}")
+    public ResponseEntity<MensajeDTO<List<HistorialDTO>>> obtenerHistorial(@PathVariable String id) throws Exception{
+        List<HistorialDTO> historialDTOS= inventarioServicio.obtenerHistorial(id);
+        return ResponseEntity.ok(new MensajeDTO<>(false,historialDTOS));
+    }
 }

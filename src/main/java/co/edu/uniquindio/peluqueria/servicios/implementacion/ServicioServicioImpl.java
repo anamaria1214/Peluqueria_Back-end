@@ -89,7 +89,7 @@ public class ServicioServicioImpl implements ServicioServicio {
                 .map(servicio -> new ItemServicioDTO(
                         servicio.getId(),
                         servicio.getNombreServicio(),
-                        servicio.getPrecio()))
+                        servicio.getPrecio(), servicio.getImagen()))
                 .collect(Collectors.toList());
     }
 

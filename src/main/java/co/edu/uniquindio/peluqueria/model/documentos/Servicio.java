@@ -20,5 +20,6 @@ public class Servicio {
     private String descripcion;
     private double precio;
     private int duracionMinutos;
+    private String imagen;
 }
 

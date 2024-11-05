@@ -1,11 +1,13 @@
 package co.edu.uniquindio.peluqueria.repositorios;
 
+import co.edu.uniquindio.peluqueria.model.documentos.Cita;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EstilistaRepo extends MongoRepository<Estilista, String> {
@@ -25,4 +27,5 @@ public interface EstilistaRepo extends MongoRepository<Estilista, String> {
     // Buscar todos los estilistas ordenados por nombre de forma ascendente
     @Query("{}")
     List<Estilista> findAllByOrderByNombreEstilistaAsc();
+
 }

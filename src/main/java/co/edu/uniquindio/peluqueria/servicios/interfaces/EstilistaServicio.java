@@ -1,8 +1,9 @@
 package co.edu.uniquindio.peluqueria.servicios.interfaces;
 
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
+import co.edu.uniquindio.peluqueria.dto.EstilistasDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
-import org.springframework.stereotype.Service;
+import jakarta.validation.Valid;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,4 +20,10 @@ public interface EstilistaServicio {
 
     // Método para guardar un estilista
     Estilista guardarEstilista(Estilista estilista) throws Exception;
+
+    void eliminarEstilista(String id) throws Exception;
+
+    EstilistasDTO obtenerEstilista(String id) throws  Exception;
+
+    EstilistasDTO editarEstilista(@Valid EstilistasDTO estilistasDTO) throws Exception;
 }

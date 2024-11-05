@@ -1,8 +1,8 @@
 package co.edu.uniquindio.peluqueria.servicios.interfaces;
 
-import co.edu.uniquindio.peluqueria.dto.AgregarProductoStockDTO;
-import co.edu.uniquindio.peluqueria.dto.ProductoStockDTO;
+import co.edu.uniquindio.peluqueria.dto.*;
 import co.edu.uniquindio.peluqueria.model.documentos.Inventario;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,4 +21,8 @@ public interface InventarioServicio {
     void agregarProducto(AgregarProductoStockDTO producto);
 
     void eliminarProducto(String id) throws Exception;
+
+    List<HistorialDTO> obtenerHistorial(String id);
+
+    List<ReporteDTO> obtenerReporte(String fechaInicio, String fechaFin);
 }
