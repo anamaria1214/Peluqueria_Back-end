@@ -119,6 +119,29 @@ public class InventarioServicioImpl implements InventarioServicio {
     }
 
     @Override
+    public void eliminarCantidadProducto(String id, String cantidad) throws Exception{
+        Optional<Inventario> productoOptional = inventarioRepo.findById(id);
+        if (!productoOptional.isPresent()) {
+            throw new Exception("No se encontro el producto");
+        }
+        Inventario producto = productoOptional.get();
+        producto.setCantidad(producto.getCantidad() - Integer.parseInt(cantidad));
+        inventarioRepo.save(producto);
+    }
+
+    @Override
+    public void agregarCantidadProducto(AgregarCantidadProductoStockDTO productoDTO)  throws  Exception{
+        Optional<Inventario> productoOptional = inventarioRepo.findById(productoDTO.id());
+        if (!productoOptional.isPresent()) {
+            throw new Exception("No se encontro el producto");
+        }
+        Inventario producto = productoOptional.get();
+        producto.setCantidad(producto.getCantidad() + Integer.parseInt(productoDTO.cantidad()));
+        inventarioRepo.save(producto);
+    }
+
+
+    @Override
     public List<HistorialDTO> obtenerHistorial(String id) {
         List<Cita> citasID = citaRepo.findByIdCliente(id);
         List<HistorialDTO> historialDTOS = new ArrayList<>();

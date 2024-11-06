@@ -215,7 +215,7 @@ public class CitaServicioImpl implements CitaServicio {
             Estilista estilista = estilistaOptional.get();
 
 
-            citasDTO.add(new CitasDTO(citasSistema.getId(), servicio.getNombreServicio(), estilista.getNombreEstilista(), cliente.getNombre(), citasSistema.getFecha(), citasSistema.getFecha()));
+            citasDTO.add(new CitasDTO(citasSistema.getId(), servicio.getNombreServicio(), estilista.getNombreEstilista(), cliente.getNombre(), citasSistema.getFecha(), citasSistema.getFecha(), citasSistema.getEstado()));
         }
         return citasDTO;
     }
@@ -234,6 +234,18 @@ public class CitaServicioImpl implements CitaServicio {
         Optional<Estilista> estilistaOptional = estilistaRepo.findById(cita.getIdEstilista());
         Estilista estilista = estilistaOptional.get();
 
-        return new CitasDTO(cita.getId(), servicio.getNombreServicio(), estilista.getNombreEstilista(), cliente.getNombre(), cita.getFecha(), cita.getFecha());
+        return new CitasDTO(cita.getId(), servicio.getNombreServicio(), estilista.getNombreEstilista(), cliente.getNombre(), cita.getFecha(), cita.getFecha(), cita.getEstado());
+    }
+
+    @Override
+    public void updateEstado(CitaUpdateDTO updateDTO) throws Exception {
+        Optional<Cita> citaOptional = citaRepo.findById(updateDTO.idCita());
+        if (citaOptional.isEmpty()){
+            throw new Exception("La cita no fue encontrada");
+        }
+        Cita cita = citaOptional.get();
+
+        cita.setEstado(EstadoCita.TERMINADA);
+        citaRepo.save(cita);
     }
 }

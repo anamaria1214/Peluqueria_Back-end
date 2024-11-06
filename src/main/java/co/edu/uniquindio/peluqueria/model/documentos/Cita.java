@@ -20,7 +20,7 @@ public class Cita {
     @Id
     private String id;
     private String idCliente;
-    private String idServicio;
+    private String idServicio;  
     private String idEstilista;
     private LocalDateTime fecha;
     private LocalDateTime fechaInicioCita;

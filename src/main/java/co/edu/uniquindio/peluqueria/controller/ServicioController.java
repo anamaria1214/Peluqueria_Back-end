@@ -23,9 +23,9 @@ public class ServicioController {
     private final ServicioServicio servicioServicio;
 
     @PostMapping("/crear-servicio")
-    public ResponseEntity<MensajeDTO<String>> crearServicio(@Valid @RequestBody CrearServicioDTO servicio) throws Exception{
-        servicioServicio.crearServicio(servicio);
-        return ResponseEntity.ok(new MensajeDTO<>(false, "Servicio creado exitosamente"));
+    public ResponseEntity<MensajeDTO<VistaCreacionServicioDTO>> crearServicio(@Valid @RequestBody CrearServicioDTO servicio) throws Exception{
+        VistaCreacionServicioDTO servicioDTO = servicioServicio.crearServicio(servicio);
+        return ResponseEntity.ok(new MensajeDTO<>(false, servicioDTO));
     }
 
     @PutMapping("/editar-servicio")

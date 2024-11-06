@@ -1,5 +1,6 @@
 package co.edu.uniquindio.peluqueria.dto.CitaDTO;
 
+import co.edu.uniquindio.peluqueria.model.enums.EstadoCita;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 
@@ -15,7 +16,8 @@ public record CitasDTO(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") // Asegúrate de que el patrón coincide con el formato de entrada
         LocalDateTime fechaInicioCita,
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss") // Asegúrate de que el patrón coincide con el formato de entrada
-        LocalDateTime horaCita
+        LocalDateTime horaCita,
+        EstadoCita estado
 
 ) {
 }

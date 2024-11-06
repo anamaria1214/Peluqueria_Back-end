@@ -1,15 +1,12 @@
 package co.edu.uniquindio.peluqueria.servicios.interfaces;
 
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.CrearServicioDTO;
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.EditarServicioDTO;
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.InformacionServicioDTO;
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.ItemServicioDTO;
+import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.*;
 
 import java.util.List;
 
 public interface ServicioServicio {
 
-    String crearServicio(CrearServicioDTO crearServicioDTO) throws Exception;
+    VistaCreacionServicioDTO crearServicio(CrearServicioDTO crearServicioDTO) throws Exception;
 
     String editarServicio(EditarServicioDTO editarServicioDTO) throws Exception;
 

@@ -25,4 +25,8 @@ public interface InventarioServicio {
     List<HistorialDTO> obtenerHistorial(String id);
 
     List<ReporteDTO> obtenerReporte(String fechaInicio, String fechaFin);
+
+    void eliminarCantidadProducto(String id, String cantidad) throws Exception;
+
+    void agregarCantidadProducto(@Valid AgregarCantidadProductoStockDTO producto) throws Exception;
 }

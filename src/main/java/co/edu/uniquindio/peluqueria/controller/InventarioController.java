@@ -53,6 +53,19 @@ public class InventarioController {
         return ResponseEntity.ok(new MensajeDTO<>(false,"Producto eliminado correctamente"));
     }
 
+    @DeleteMapping("/eliminar-cantidad/{id}/{cantidad}")
+    public ResponseEntity<MensajeDTO<String>> eliminarProducto(@PathVariable String id, @PathVariable String cantidad) throws Exception{
+        inventarioServicio.eliminarCantidadProducto(id, cantidad);
+        return ResponseEntity.ok(new MensajeDTO<>(false,"Producto eliminado correctamente"));
+    }
+
+    @PostMapping("/agregar-cantidad-producto")
+    public ResponseEntity<MensajeDTO<String>> agregarProducto(@Valid @RequestBody AgregarCantidadProductoStockDTO producto) throws Exception {
+        inventarioServicio.agregarCantidadProducto(producto);
+        return ResponseEntity.ok(new MensajeDTO<>(false,"Cantidad del producto agregado correctamente"));
+    }
+
+
     @GetMapping("/generarReporte/{fechaInicio}/{fechaFin}")
     public ResponseEntity<MensajeDTO<List<ReporteDTO>>> obtenerProductoPorId(@PathVariable String fechaInicio,
                                                                              @PathVariable String fechaFin) throws Exception{

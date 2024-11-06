@@ -1,7 +1,10 @@
 package co.edu.uniquindio.peluqueria.servicios.implementacion;
 
+import co.edu.uniquindio.peluqueria.dto.CreacionEmpleadoDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistasDTO;
+import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.CrearServicioDTO;
+import co.edu.uniquindio.peluqueria.dto.VistaCreacionEstilistaDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cita;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import co.edu.uniquindio.peluqueria.repositorios.EstilistaRepo;
@@ -123,6 +126,22 @@ public class EstilistaServicioImpl implements EstilistaServicio {
                 estilista.getId(),
                 estilista.getNombreEstilista(),
                 estilista.getEspecialidad());
+    }
+
+    @Override
+    public VistaCreacionEstilistaDTO crearEstilista(CreacionEmpleadoDTO empleado) throws Exception{
+        if (empleado.nombre() == null) {
+            throw new Exception("El nombre es obligatorio");
+        }
+        if (empleado.especialidad() == null) {
+            throw new Exception("La especialidad es obligatoria");
+        }
+        Estilista estilista = new Estilista();
+        estilista.setNombreEstilista(empleado.nombre());
+        estilista.setEspecialidad(empleado.especialidad());
+        estilistaRepo.save(estilista);
+
+        return new VistaCreacionEstilistaDTO(empleado.nombre(), empleado.especialidad());
     }
 
 }

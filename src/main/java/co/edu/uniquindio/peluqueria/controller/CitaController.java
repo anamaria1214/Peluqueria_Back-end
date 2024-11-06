@@ -38,6 +38,12 @@ public class CitaController {
         return ResponseEntity.ok(new MensajeDTO<>(false, citaEditada));
     }
 
+    @PutMapping("/update-cita")
+    public ResponseEntity<MensajeDTO<String>> editarCita(@Valid @RequestBody CitaUpdateDTO updateDTO) throws Exception {
+        citaServicio.updateEstado(updateDTO);
+        return ResponseEntity.ok(new MensajeDTO<>(false, "Cita editada correctamente"));
+    }
+
     @PutMapping("/asignarEstilista")
     public ResponseEntity<MensajeDTO<String>> asignarEstilista(@Valid @RequestBody AsignarEstilistaDTO asignarEstilistaDTO) throws Exception {
         citaServicio.asignarEstilista(asignarEstilistaDTO);

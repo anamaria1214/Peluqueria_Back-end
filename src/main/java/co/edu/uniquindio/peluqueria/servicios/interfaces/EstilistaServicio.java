@@ -1,7 +1,10 @@
 package co.edu.uniquindio.peluqueria.servicios.interfaces;
 
+import co.edu.uniquindio.peluqueria.dto.CreacionEmpleadoDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistasDTO;
+import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.CrearServicioDTO;
+import co.edu.uniquindio.peluqueria.dto.VistaCreacionEstilistaDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import jakarta.validation.Valid;
 
@@ -26,4 +29,6 @@ public interface EstilistaServicio {
     EstilistasDTO obtenerEstilista(String id) throws  Exception;
 
     EstilistasDTO editarEstilista(@Valid EstilistasDTO estilistasDTO) throws Exception;
+
+    VistaCreacionEstilistaDTO crearEstilista(@Valid CreacionEmpleadoDTO servicio) throws Exception;
 }

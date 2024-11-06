@@ -53,7 +53,7 @@ public class ServicioTest {
         );
 
         // Ejecutar el método para crear servicio
-        String servicioId = servicioServicio.crearServicio(crearServicioDTO);
+        String servicioId = String.valueOf(servicioServicio.crearServicio(crearServicioDTO));
 
         // Verificar que el servicio se ha creado correctamente
         assertNotNull(servicioId);

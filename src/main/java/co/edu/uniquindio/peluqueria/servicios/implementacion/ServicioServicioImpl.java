@@ -1,13 +1,10 @@
 package co.edu.uniquindio.peluqueria.servicios.implementacion;
 
+import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.*;
 import co.edu.uniquindio.peluqueria.model.documentos.Servicio;
 import co.edu.uniquindio.peluqueria.repositorios.ServicioRepo;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.ServicioServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.ServicioServicio;
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.CrearServicioDTO;
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.EditarServicioDTO;
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.ItemServicioDTO;
-import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.InformacionServicioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,22 +26,31 @@ public class ServicioServicioImpl implements ServicioServicio {
     }
 
     @Override
-    public String crearServicio(CrearServicioDTO crearServicioDTO) throws Exception {
+    public VistaCreacionServicioDTO crearServicio(CrearServicioDTO crearServicioDTO) throws Exception {
         // Verificar si ya existe un servicio con el mismo nombre
+        if (crearServicioDTO.nombreServicio().isBlank()) {
+            throw new Exception("El nombre es obligatorio");
+        }
         if (servicioRepo.buscarServicioPorNombre(crearServicioDTO.nombreServicio()).isPresent()) {
             throw new Exception("El nombre del servicio ya está registrado");
+        }
+        if (crearServicioDTO.descripcion().isBlank()) {
+            throw new Exception("la descripcion es obligatoria");
+        }
+        if (crearServicioDTO.precio() < 0) {
+            throw new Exception("El precio es obligatorio y positivo");
         }
 
         // Crear un nuevo servicio
         Servicio nuevoServicio = new Servicio();
-        nuevoServicio.setId(UUID.randomUUID().toString()); // Genera un ID único
         nuevoServicio.setNombreServicio(crearServicioDTO.nombreServicio());
         nuevoServicio.setDescripcion(crearServicioDTO.descripcion());
         nuevoServicio.setPrecio(crearServicioDTO.precio());
         nuevoServicio.setDuracionMinutos(crearServicioDTO.duracionMinutos());
+        nuevoServicio.setImagen("https://st3.depositphotos.com/1421381/35450/v/450/depositphotos_354506988-stock-illustration-bearded-man-faces-hipster-haircuts.jpg");
+        servicioRepo.save(nuevoServicio);
 
-        servicioRepo.save(nuevoServicio); // Guardar en MongoDB
-        return nuevoServicio.getId();
+        return new VistaCreacionServicioDTO(nuevoServicio.getNombreServicio(), nuevoServicio.getDescripcion(), nuevoServicio.getPrecio(), nuevoServicio.getDuracionMinutos());
     }
 
     @Override

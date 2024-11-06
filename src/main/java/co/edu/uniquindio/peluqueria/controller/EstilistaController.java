@@ -1,10 +1,15 @@
 package co.edu.uniquindio.peluqueria.controller;
 
 import co.edu.uniquindio.peluqueria.dto.CitaDTO.EditarCitaDTO;
+import co.edu.uniquindio.peluqueria.dto.CitaDTO.VistaCreacionCitaDTO;
 import co.edu.uniquindio.peluqueria.dto.CitaDTO.VistaEdicionCitaDTO;
+import co.edu.uniquindio.peluqueria.dto.CreacionEmpleadoDTO;
 import co.edu.uniquindio.peluqueria.dto.EstilistasDTO;
 import co.edu.uniquindio.peluqueria.dto.MensajeDTO;
+import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.CrearServicioDTO;
 import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.ItemServicioDTO;
+import co.edu.uniquindio.peluqueria.dto.ServicioDTOs.VistaCreacionServicioDTO;
+import co.edu.uniquindio.peluqueria.dto.VistaCreacionEstilistaDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Estilista;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.EstilistaServicio;
 import co.edu.uniquindio.peluqueria.servicios.interfaces.ServicioServicio;
@@ -23,6 +28,12 @@ import java.util.StringTokenizer;
 public class EstilistaController {
 
     private final EstilistaServicio estilistaServicio;
+
+    @PostMapping("/crear-estilista")
+    public ResponseEntity<MensajeDTO<VistaCreacionEstilistaDTO>> crearEstilista(@Valid @RequestBody CreacionEmpleadoDTO empleado) throws Exception{
+        VistaCreacionEstilistaDTO estilista = estilistaServicio.crearEstilista(empleado);
+        return ResponseEntity.ok(new MensajeDTO<>(false, estilista));
+    }
 
     @GetMapping("/obtener")
     public ResponseEntity<MensajeDTO<List<EstilistasDTO>>> listarServicios() throws Exception {

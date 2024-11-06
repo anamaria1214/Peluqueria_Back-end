@@ -4,6 +4,7 @@ import co.edu.uniquindio.peluqueria.dto.AsignarEstilistaDTO;
 import co.edu.uniquindio.peluqueria.dto.CitaDTO.*;
 import co.edu.uniquindio.peluqueria.dto.EstilistaDisponiblesDTO;
 import co.edu.uniquindio.peluqueria.model.documentos.Cita;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface CitaServicio {
     List<CitasDTO> listarCitas();
 
     CitasDTO buscarCita(String cita) throws Exception;
+
+    void updateEstado(@Valid CitaUpdateDTO updateDTO) throws Exception;
 }
